@@ -4,7 +4,7 @@ void userInput(sf::Keyboard);
 
 
 int main() {
-    auto window = sf::RenderWindow{{800u, 600u}, "COP3003 Project"};
+    auto window = sf::RenderWindow{{1920, 1080}, "COP3003 Project"};
     window.setFramerateLimit(144);
 
     sf::Sprite sprite;
