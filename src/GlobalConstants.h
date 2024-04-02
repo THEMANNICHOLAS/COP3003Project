@@ -9,8 +9,8 @@
 #define CMAKESFMLPROJECT_GLOBALCONSTANTS_H
 
 constexpr unsigned char CELL_SIZE = 16;
-constexpr unsigned char MAP_HEIGHT = 31;
-constexpr unsigned char MAP_WIDTH = 28;
+constexpr unsigned char MAP_HEIGHT = 31; // 31 Cells High, not pixel value
+constexpr unsigned char MAP_WIDTH = 28; // 28 Cells wide, not pixel value
 
 
 

@@ -60,6 +60,14 @@ bool mapCollision(bool collectPellets, short xCoord, short yCoord, std::array<st
         short x = floor(cellX);
         short y = floor(cellY);
 
+        switch(i){
+            case 0: //Checks top left cell
+            x = floor(cellX);
+            y = floor(cellY);
+
+
+
+        }
 
 
 

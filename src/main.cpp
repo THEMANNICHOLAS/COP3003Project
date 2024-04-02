@@ -30,6 +30,9 @@ int main() {
         window.draw(sprite);
         window.display();
 
+
+
+        /*
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 
         }
@@ -42,7 +45,7 @@ int main() {
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 
         }
-
+        */
 
 
 

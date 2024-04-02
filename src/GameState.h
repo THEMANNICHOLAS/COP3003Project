@@ -19,7 +19,7 @@ private:
     bool gameOver;
     virtual void keyPressed(char key) = 0;
     virtual bool isEnergized() = 0; //Virtual function for both Pac-Man and Ghost classes
-
+    virtual void cellState() = 0;
 
 
 

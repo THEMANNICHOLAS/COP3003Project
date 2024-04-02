@@ -14,7 +14,9 @@ add_executable(CMakeSFMLProject src/main.cpp
         src/map.cpp
         src/GlobalConstants.h
         src/GameState.cpp
-        src/GameState.h)
+        src/GameState.h
+        src/Pacman.cpp
+        src/Pacman.h)
 target_link_libraries(CMakeSFMLProject PRIVATE sfml-graphics sfml-audio)
 target_compile_features(CMakeSFMLProject PRIVATE cxx_std_17)
 
