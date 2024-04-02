@@ -1,3 +1,8 @@
+/************************************************
+ * file: main.cpp
+ * dev:
+ * desc: main program and file to run game
+ ***********************************************/
 #include <SFML/Graphics.hpp>
 
 void userInput(sf::Keyboard);

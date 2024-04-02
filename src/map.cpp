@@ -1,6 +1,9 @@
-//
-// Created by sting on 3/27/2024.
-//
+/************************************************
+ * file: map.cpp
+ * dev:
+ * desc: file that contains functions related to
+ * map for use in Pacman.h class and GameState.h
+ ***********************************************/
 #include <array>
 #include <cmath>
 #include <SFML/Graphics.hpp>
@@ -56,12 +59,15 @@ bool mapCollision(bool collectPellets, short xCoord, short yCoord, std::array<st
     for(char i = 0; i < 4; i++){
         short x = floor(cellX);
         short y = floor(cellY);
+
+
+
+
+
+
+
         if(MAP_HEIGHT>y && MAP_WIDTH>x && x>=0 && y>=0){
 
         }
-
-
-
     }
-
 }
