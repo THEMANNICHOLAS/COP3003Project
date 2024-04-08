@@ -2,111 +2,122 @@
 
 #include "Labyrinth.h"
 #include <iostream>
-#include "SFML/Graphics.hpp"
 #include "GlobalConstants.h"
 /**
  * I will ask the professor if these are viable constructors or not
  */
+
+std::array<std::string, MAP_HEIGHT> mapSketch1{
+        "****************************", //1
+        "*            **            *", //2
+        "* **** ***** ** ***** **** *", //3
+        "*O**** ***** ** ***** ****O*", //4
+        "* **** ***** ** ***** **** *", //5
+        "*                          *", //6
+        "* **** ** ******** ** **** *", //7
+        "* **** ** ******** ** **** *", //8
+        "*      **    **    **      *", //9
+        "****** ***** ** ***** ******", //10
+        "     * ***** ** ***** *     ", //11
+        "     * **          ** *     ", //12
+        "     * ** ******** ** *     ", //13
+        "     * ** **2**4** ** *     ", //14
+        "     *    ********    *     ", //15
+        "     * ** *1*3**** ** *     ", //16
+        "     * ** ******** ** *     ", //17
+        "     * **          ** *     ", //18
+        "     * ** ******** ** *     ", //19
+        "****** ** ******** ** ******", //20
+        "*            **            *", //21
+        "* **** ***** ** ***** **** *", //22
+        "* **** ***** ** ***** **** *", //23
+        "*   **       P        **   *", //24
+        "*** ** ** ******** ** ** ***", //25
+        "*** ** ** ******** ** ** ***", //26
+        "*   **       **    **      *", //27
+        "*O********** ** **********O*", //28
+        "* ********** ** ********** *", //29
+        "*                          *", //30
+        "****************************", //31
+};
+
 
 
 /**
  * Default Constructor
  * Converts every cell in matrix array to enum Cell::Empty
  */
-Labyrinth::Labyrinth() {
-    for (char i = 0; i < MAP_HEIGHT; ++i) {
-        for (char j = 0; j < MAP_WIDTH; ++j) {
 
-            _map[i][j] = Cell::Empty;    //Makes every cell in Map empty
+Labyrinth::Labyrinth() {
+    convertMap(mapSketch1);
+};
+
+
+void Labyrinth::convertMap(std::array<std::string, MAP_HEIGHT> & map){
+
+    for(unsigned char i=0; i<MAP_HEIGHT; i++) {
+        for (unsigned char j = 0; j < MAP_WIDTH; j++) {
+
+            //Makes every cell Empty
+            this->_map[i][j] = Cell::Empty;
+
+            switch (map[i][j]) {
+                case '*':
+                    this->_map[i][j] = Cell::Wall;
+                    break;
+                case ' ':
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                case 'O':
+                    this->_map[i][j] = Cell::Energizer;
+                    break;
+                case '1':
+                    //will be ghost 1;
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                case '2':
+                    //will be ghost 2;
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                case '3':
+                    //will be ghost 3;
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                case '4':
+                    //will be ghost 4;
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                case 'P':
+                    //will be Pac-girly;
+                    this->_map[i][j] = Cell::Empty;
+                    break;
+                default:
+                    this->_map[i][j] = Cell::Wall;
+            }
         }
     }
 };
 
 
-/**
- *
- * @param map - map matrix with chars, is a sketch
- */
-Labyrinth::Labyrinth(std::array<std::string, MAP_HEIGHT> & map) {
-    _map = setMap(map);
-
-}
-
-
-/**
- *
- * @param map -
- * @return - takes std::array<std::string, MAP_WIDTH> map and returns
- * std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>
- */
-std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Labyrinth::convertMap(std::array<std::string, MAP_HEIGHT> map) {
-
-    //Resulting map that will be returned
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> outputMap{};
-
-    for(unsigned char i=0; i<MAP_HEIGHT; i++){
-        for(unsigned char j=0; j<MAP_WIDTH; j++) {
-
-            //Makes every cell Empty
-            outputMap[i][j] = Cell::Empty;
-
-            switch(map[i][j]){
-                case '*':
-                    outputMap[i][j] = Cell::Wall;
-                    break;
-                case ' ':
-                    outputMap[i][j] = Cell::Empty;
-                    break;
-                case 'O':
-                    outputMap[i][j] = Cell::Energizer;
-                    break;
-                case '1':
-                    //will be ghost 1;
-                    break;
-                case '2':
-                    //will be ghost 2;
-                    break;
-                case '3':
-                    //will be ghost 3;
-                    break;
-                case '4':
-                    //will be ghost 4;
-                    break;
-                case 'P':
-                    //will be Pac-girly;
-                    break;
-                default:
-                    map[i][j] = Cell::Wall;
-            }
-        }
-    };
-    return outputMap;
-};
-
-
-void Labyrinth::drawmap(sf::RenderWindow & window) {
-    sf::Sprite sprite;
-    sf::Texture texture;
-
-    texture.loadFromFile("..\\..\\..\\assets\\map16");
-    sprite.setTexture(texture);
+void Labyrinth::renderMap(sf::RenderWindow & window) {
+    this->_texture.loadFromFile("../../assets/Map16.png");
+    this->_sprite.setTexture(this->_texture);
 
     for(char i= 0; i < MAP_WIDTH; ++i){
         for(char j = 0; j < MAP_HEIGHT; ++j)
         {
-            sprite.setPosition(static_cast<float> (CELL_SIZE * i) , static_cast<float>(CELL_SIZE * j));
+            this->_sprite.setPosition(static_cast<float> (CELL_SIZE * i) , static_cast<float>(CELL_SIZE * j));
 
 
-            switch(_map[i][j])
+            switch(this->_map[i][j])
             {
                 case(Cell::Energizer):
-                    sprite.setTextureRect(sf::IntRect(CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
-                    window.draw(sprite);
+
                     break;
 
                 case(Cell::Pellet):
-                    sprite.setTextureRect(sf::IntRect(CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
-                    window.draw(sprite);
+                    this->_sprite.setTextureRect(sf::IntRect(0, CELL_SIZE, CELL_SIZE, CELL_SIZE));
+                    window.draw(this->_sprite);
                     break;
 
                 case(Cell::Wall):
@@ -117,42 +128,31 @@ void Labyrinth::drawmap(sf::RenderWindow & window) {
                     bool up{false};
 
                     if(j < MAP_HEIGHT-1) {
-                        if (Cell::Wall == _map[i][j + 1]) {down = true;}
+                        if (Cell::Wall == this->_map[i][j + 1]) {down = true;}
                     }
 
                     if(i < 0){
-                        if(Cell::Wall == _map[i-1][j]) {left = true;}
+                        if(Cell::Wall == this->_map[i-1][j]) {left = true;}
                     }
-                    else {left = 1;}
+                    else {left = true;}
 
                     if(i < MAP_WIDTH-1){
-                        if(Cell::Wall == _map[i+1][j]) {right = true;}
+                        if(Cell::Wall == this->_map[i+1][j]) {right = true;}
                     }
                     else {right = true;}
 
                     if(j > 0){
-                        if(Cell::Wall == _map[i][j-1]) {up = true;}
+                        if(Cell::Wall == this->_map[i][j-1]) {up = true;}
                     }
 
-                    sprite.setTextureRect(sf::IntRect(CELL_SIZE * (down + 2 * (left + 2 * (right + 2 * up))), 0, CELL_SIZE, CELL_SIZE));
-                    window.draw(sprite);
-
-                }
+                    this->_sprite.setTextureRect(sf::IntRect(CELL_SIZE * (down + 2 * (left + 2 * (right + 2 * up))), 0, CELL_SIZE, CELL_SIZE));
+                }   window.draw(this->_sprite);
             }
         }
     }
-};
+}
 
 
-/**
- *
- * @param map - map matrix with chars, is a sketch
- * @return converted map from char sketch to enum Cell values
- */
-std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Labyrinth::setMap(std::array<std::string, MAP_HEIGHT> & map) {
-    Labyrinth output;
-    return output.convertMap(map);
-};
 
 
 
