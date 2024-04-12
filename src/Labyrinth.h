@@ -1,41 +1,55 @@
 //
-// Created by sting on 4/5/2024.
+// Created by sting on 4/11/2024.
 //
 
-#ifndef CMAKESFMLPROJECT_LABYRINTH_H
-#define CMAKESFMLPROJECT_LABYRINTH_H
+#ifndef CMAKESFMLMAP_LABYRINTH_H
+#define CMAKESFMLMAP_LABYRINTH_H
+
 
 #include <array>
-#include "GlobalConstants.h"
-#include "Pacman.h"
+#include <string>
+#include "GLOBAL.h"
+#include "SFML/Graphics.hpp"
 
-class Labyrinth {
+
+class Labyrinth{
 private:
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> _map{};
+
+    sf::Texture tileSheetTexture;
+    std::array<std::string, MAP_HEIGHT> mapSketch1;
+    sf::RenderWindow * _window;
+    sf::Sprite sprite;
+
+    int mapArr[MAP_WIDTH][MAP_HEIGHT];
+    //std::vector<std::vector<int>> _map;
+
+    //Private Functions:
+    void render();
+    void checkWall(int i, int j);
+    //void convertMap();
+    //void print();
+
 
 public:
+
     //Constructors
-    //------------
     Labyrinth();
-    Labyrinth(std::array<std::string, MAP_HEIGHT> & map);
+    Labyrinth(sf::RenderWindow & window);
 
-
-    //Getters-Setters
-    //---------------
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> setMap(std::array<std::string, MAP_HEIGHT> & map);
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> getMap() {return _map;};
-
-
-
-
+    //Destructor
+    ~Labyrinth();
 
     //Member Functions
-    //----------------
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> convertMap(std::array<std::string, MAP_HEIGHT> map);
-    void drawmap(sf::RenderWindow& window);
 
 
+    void initialize();
+    void load();
+    void update();
+    void convertMap();
+
+    void setWindow(sf::RenderWindow & window) {_window = &window;}
 };
 
 
-#endif //CMAKESFMLPROJECT_LABYRINTH_H
+
+#endif //CMAKESFMLMAP_LABYRINTH_H
