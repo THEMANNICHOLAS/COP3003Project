@@ -3,37 +3,46 @@
 //
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include <iostream>
 #include "Entity.h"
-#ifndef COP3003PROJECT_GAME_H
-#define COP3003PROJECT_GAME_H
+#include "Labyrinth.h"
 
+#ifndef GAME_H
+#define GAME_H
 
 class Game {
 
 private:
-    sf::RenderWindow* window;
+    sf::RenderWindow * _window;
 
     //Player
-    Entity* entity;
+    Entity * entity;
 
     //Private Functions
     void initWindow();
     void initEntity();
 
 
+
 public:
     Game();
+    Game(sf::RenderWindow & window);
     virtual ~Game();
 
     //Functions
     void runGame(); // this function is going to just run the game
 
+    void updateEntity();
     void update();
+    void renderEntity();
     void render();
+
+
+
+
 
 
 };
 
 
-#endif //COP3003PROJECT_GAME_H
+
+#endif //GAME_H
