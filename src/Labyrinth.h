@@ -21,12 +21,11 @@ private:
     sf::Sprite sprite;
 
     int mapArr[MAP_WIDTH][MAP_HEIGHT];
-    //std::vector<std::vector<int>> _map;
 
     //Private Functions:
     void render();
     void checkWall(int i, int j);
-    //void convertMap();
+    void convertMap();
     //void print();
 
 
@@ -45,7 +44,6 @@ public:
     void initialize();
     void load();
     void update();
-    void convertMap();
 
     void setWindow(sf::RenderWindow & window) {_window = &window;}
 };
