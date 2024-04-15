@@ -115,13 +115,13 @@ void Labyrinth::update() {
 
 void Labyrinth::render() {
 
-    //convertMap();
+    convertMap();
 
     for(int i=0; i<MAP_WIDTH; i++){
         for(int j=0; j<MAP_HEIGHT; j++){
             sprite.setPosition((CELL_SIZE * i*2)+480, (CELL_SIZE * j*2));
 
-            switch(mapSketch1[j][i]) {
+            switch(mapArr[i][j]) {
                 case Cell::Wall:
                     checkWall(i, j);
                     _window->draw(sprite);
@@ -144,40 +144,54 @@ void Labyrinth::render() {
 
 void Labyrinth::checkWall(int i, int j) {
 
-    bool left {false};
-    bool right {false};
-    bool up {false};
-    bool down {false};
+    bool left{false};
+    bool right{false};
+    bool up{false};
+    bool down{false};
 
     //Checks for every side of sprite
-    if((mapSketch1[i][j] == mapArr[i][j+1]) && (mapSketch1[i][j] == mapArr[i][j-1])) {
-        sprite.setTextureRect(sf::IntRect(9 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE));
+    if (mapArr[i][j + 1] == Cell::Wall) {
+        if (mapArr[i][j - 1] == Cell::Wall) {
+            sprite.setTextureRect(sf::IntRect(9 * CELL_SIZE, 0, CELL_SIZE, CELL_SIZE));
+        }
     }
-    else{
+    else {
         sprite.setTextureRect(sf::IntRect(0, 0, CELL_SIZE, CELL_SIZE));
     }
 }
 
-/*
+
 void Labyrinth::convertMap() {
     for(int i = 0; i < MAP_WIDTH; ++i){
         for(int j = 0; j < MAP_HEIGHT; ++j){
             switch (mapSketch1[i][j]) {
-                case(Sketch::Wall):
-                    mapArr[i][j] = Cell::WallTile;
+                case('*'):
+                    mapArr[i][j] = Cell::Wall;
                     break;
-                case(Sketch::Energizer):
-                    mapArr[i][j] = Cell::EnergizerTile;
+                case('O'):
+                    mapArr[i][j] = Cell::Energizer;
                     break;
-                case(Sketch::Pacman):
-                    mapArr[i][j] = Cell::PacmanSpawn;
+                case('P'):
+                    mapArr[i][j] = Cell::Pacman;
                     break;
-
             }
         }
     }
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 void Labyrinth::print() {
