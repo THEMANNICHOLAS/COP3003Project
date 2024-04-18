@@ -10,23 +10,25 @@
 #include <string>
 #include "GLOBAL.h"
 #include "SFML/Graphics.hpp"
+#include "Cell.h"
 
 
 class Labyrinth{
 private:
 
     sf::Texture tileSheetTexture;
-    std::array<std::string, MAP_HEIGHT> mapSketch1;
+    std::string mapSketch1[MAP_HEIGHT];
     sf::RenderWindow * _window;
     sf::Sprite sprite;
+    Cell cells[MAP_HEIGHT][MAP_WIDTH];
 
-    int mapArr[MAP_WIDTH][MAP_HEIGHT];
+
+
 
     //Private Functions:
     void render();
-    void checkWall(int i, int j);
+    void checkWall(int row, int col);
     void convertMap();
-    //void print();
 
 
 public:
@@ -45,7 +47,7 @@ public:
     void load();
     void update();
 
-    void setWindow(sf::RenderWindow & window) {_window = &window;}
+    void print();
 };
 
 
